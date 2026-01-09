@@ -1,0 +1,119 @@
+{
+  "aig_info": {
+    "num_inputs": 21,
+    "num_latches": 10,
+    "num_outputs": 52,
+    "num_ands": 248,
+    "max_var": 279
+  },
+  "signals": {
+    "zero": {
+      "width": 1,
+      "type": "latch",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 30, "inverted": false, "node_type": "latch"}]
+    },
+    "xor_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 80, "inverted": false, "node_type": "and"}, {"bit": 1, "aig_node": 81, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 82, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 83, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 84, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 85, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 86, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 87, "inverted": false, "node_type": "and"}]
+    },
+    "sub_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 88, "inverted": true, "node_type": "and"}, {"bit": 1, "aig_node": 167, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 200, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 229, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 230, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 252, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 253, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 267, "inverted": false, "node_type": "and"}]
+    },
+    "sub_full": {
+      "width": 9,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 88, "inverted": true, "node_type": "and"}, {"bit": 1, "aig_node": 167, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 200, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 229, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 230, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 252, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 253, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 267, "inverted": false, "node_type": "and"}, {"bit": 8, "aig_node": -1, "inverted": false, "node_type": "optimized"}]
+    },
+    "selected_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 219, "inverted": true, "node_type": "and"}, {"bit": 1, "aig_node": 220, "inverted": true, "node_type": "and"}, {"bit": 2, "aig_node": 236, "inverted": true, "node_type": "and"}, {"bit": 3, "aig_node": 257, "inverted": true, "node_type": "and"}, {"bit": 4, "aig_node": 258, "inverted": true, "node_type": "and"}, {"bit": 5, "aig_node": 272, "inverted": true, "node_type": "and"}, {"bit": 6, "aig_node": 273, "inverted": true, "node_type": "and"}, {"bit": 7, "aig_node": 276, "inverted": true, "node_type": "and"}]
+    },
+    "rst_n": {
+      "width": 1,
+      "type": "input",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 21, "inverted": false, "node_type": "input"}]
+    },
+    "result_is_zero": {
+      "width": 1,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 279, "inverted": false, "node_type": "and"}]
+    },
+    "result": {
+      "width": 8,
+      "type": "latch",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 22, "inverted": false, "node_type": "latch"}, {"bit": 1, "aig_node": 23, "inverted": false, "node_type": "latch"}, {"bit": 2, "aig_node": 24, "inverted": false, "node_type": "latch"}, {"bit": 3, "aig_node": 25, "inverted": false, "node_type": "latch"}, {"bit": 4, "aig_node": 26, "inverted": false, "node_type": "latch"}, {"bit": 5, "aig_node": 27, "inverted": false, "node_type": "latch"}, {"bit": 6, "aig_node": 28, "inverted": false, "node_type": "latch"}, {"bit": 7, "aig_node": 29, "inverted": false, "node_type": "latch"}]
+    },
+    "or_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 44, "inverted": true, "node_type": "and"}, {"bit": 1, "aig_node": 45, "inverted": true, "node_type": "and"}, {"bit": 2, "aig_node": 46, "inverted": true, "node_type": "and"}, {"bit": 3, "aig_node": 47, "inverted": true, "node_type": "and"}, {"bit": 4, "aig_node": 48, "inverted": true, "node_type": "and"}, {"bit": 5, "aig_node": 49, "inverted": true, "node_type": "and"}, {"bit": 6, "aig_node": 50, "inverted": true, "node_type": "and"}, {"bit": 7, "aig_node": 51, "inverted": true, "node_type": "and"}]
+    },
+    "op": {
+      "width": 3,
+      "type": "input",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 18, "inverted": false, "node_type": "input"}, {"bit": 1, "aig_node": 19, "inverted": false, "node_type": "input"}, {"bit": 2, "aig_node": 20, "inverted": false, "node_type": "input"}]
+    },
+    "clk": {
+      "width": 1,
+      "type": "input",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 17, "inverted": false, "node_type": "input"}]
+    },
+    "carry": {
+      "width": 1,
+      "type": "latch",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 31, "inverted": false, "node_type": "latch"}]
+    },
+    "b": {
+      "width": 8,
+      "type": "input",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 9, "inverted": false, "node_type": "input"}, {"bit": 1, "aig_node": 10, "inverted": false, "node_type": "input"}, {"bit": 2, "aig_node": 11, "inverted": false, "node_type": "input"}, {"bit": 3, "aig_node": 12, "inverted": false, "node_type": "input"}, {"bit": 4, "aig_node": 13, "inverted": false, "node_type": "input"}, {"bit": 5, "aig_node": 14, "inverted": false, "node_type": "input"}, {"bit": 6, "aig_node": 15, "inverted": false, "node_type": "input"}, {"bit": 7, "aig_node": 16, "inverted": false, "node_type": "input"}]
+    },
+    "and_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 32, "inverted": false, "node_type": "and"}, {"bit": 1, "aig_node": 33, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 34, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 35, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 36, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 37, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 38, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 39, "inverted": false, "node_type": "and"}]
+    },
+    "add_result": {
+      "width": 8,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 80, "inverted": false, "node_type": "and"}, {"bit": 1, "aig_node": 145, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 181, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 209, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 210, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 237, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 238, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 259, "inverted": false, "node_type": "and"}]
+    },
+    "add_full": {
+      "width": 9,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 80, "inverted": false, "node_type": "and"}, {"bit": 1, "aig_node": 145, "inverted": false, "node_type": "and"}, {"bit": 2, "aig_node": 181, "inverted": false, "node_type": "and"}, {"bit": 3, "aig_node": 209, "inverted": false, "node_type": "and"}, {"bit": 4, "aig_node": 210, "inverted": false, "node_type": "and"}, {"bit": 5, "aig_node": 237, "inverted": false, "node_type": "and"}, {"bit": 6, "aig_node": 238, "inverted": false, "node_type": "and"}, {"bit": 7, "aig_node": 259, "inverted": false, "node_type": "and"}, {"bit": 8, "aig_node": 215, "inverted": true, "node_type": "and"}]
+    },
+    "add_carry": {
+      "width": 1,
+      "type": "and",
+      "is_sampled": false,
+      "bits": [{"bit": 0, "aig_node": 215, "inverted": true, "node_type": "and"}]
+    },
+    "a": {
+      "width": 8,
+      "type": "input",
+      "is_sampled": true,
+      "bits": [{"bit": 0, "aig_node": 1, "inverted": false, "node_type": "input"}, {"bit": 1, "aig_node": 2, "inverted": false, "node_type": "input"}, {"bit": 2, "aig_node": 3, "inverted": false, "node_type": "input"}, {"bit": 3, "aig_node": 4, "inverted": false, "node_type": "input"}, {"bit": 4, "aig_node": 5, "inverted": false, "node_type": "input"}, {"bit": 5, "aig_node": 6, "inverted": false, "node_type": "input"}, {"bit": 6, "aig_node": 7, "inverted": false, "node_type": "input"}, {"bit": 7, "aig_node": 8, "inverted": false, "node_type": "input"}]
+    }
+  }
+}
