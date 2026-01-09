@@ -1,0 +1,8 @@
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 8
+testbench.dut.op 3
+testbench.dut.clk 1
+testbench.dut.carry 1
+testbench.dut.b 8
+testbench.dut.a 8
