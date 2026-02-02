@@ -28,4 +28,8 @@ mockturtle/
 *.so
 waveform_completion
 
+# Output directories
+output/
+fullvision_demo/output/
+
 # Submodules (if any)
