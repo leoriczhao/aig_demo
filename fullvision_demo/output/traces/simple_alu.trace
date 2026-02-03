@@ -1,0 +1,181 @@
+$signals 8
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 8
+testbench.dut.op 3
+testbench.dut.clk 1
+testbench.dut.carry 1
+testbench.dut.b 8
+testbench.dut.a 8
+$end
+#0
+testbench.dut.zero x
+testbench.dut.rst_n x
+testbench.dut.result xxxxxxxx
+testbench.dut.op xxx
+testbench.dut.clk 0
+testbench.dut.carry x
+testbench.dut.b xxxxxxxx
+testbench.dut.a xxxxxxxx
+#5000
+testbench.dut.zero 0
+testbench.dut.rst_n 0
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#15000
+testbench.dut.zero 0
+testbench.dut.rst_n 0
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#25000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#35000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000011
+testbench.dut.a 00000101
+#45000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 00001000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000001
+testbench.dut.a 11111111
+#55000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 1
+testbench.dut.b 00000001
+testbench.dut.a 01111111
+#65000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 10000000
+testbench.dut.op 001
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000101
+testbench.dut.a 00010000
+#75000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 00001011
+testbench.dut.op 001
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00010000
+testbench.dut.a 00000101
+#85000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 11110101
+testbench.dut.op 010
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 01010101
+testbench.dut.a 10101010
+#95000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 010
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00001111
+testbench.dut.a 11111111
+#105000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 00001111
+testbench.dut.op 011
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 01010101
+testbench.dut.a 10101010
+#115000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 11111111
+testbench.dut.op 100
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 10101010
+testbench.dut.a 10101010
+#125000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 100
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 01010101
+testbench.dut.a 10101010
+#135000
+testbench.dut.zero 0
+testbench.dut.rst_n 1
+testbench.dut.result 11111111
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#145000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#155000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#165000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000
+#175000
+testbench.dut.zero 1
+testbench.dut.rst_n 1
+testbench.dut.result 00000000
+testbench.dut.op 000
+testbench.dut.clk 1
+testbench.dut.carry 0
+testbench.dut.b 00000000
+testbench.dut.a 00000000

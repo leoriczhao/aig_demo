@@ -1,0 +1,43 @@
+# FullVision Demo - Yosys统一综合脚本
+# 输出gtech网表，并生成RTL信号到AIG节点的映射（包含内部信号）
+# 需要加载signal_mapper插件: yosys -m signal_mapper.so
+
+# 读取RTL设计
+read_verilog ${DUT_FILE}
+
+# 层次展开
+hierarchy -top ${TOP_MODULE}
+
+# ============================================
+# 【重要】在综合变换前记录所有RTL信号
+# 这样才能追踪被优化或转换的信号
+# ============================================
+record_rtl_signals
+
+# 标准综合流程
+proc
+flatten
+opt
+
+# 映射到通用门 (gtech)
+techmap
+opt
+
+# 输出gtech网表 (用于iverilog仿真)
+write_verilog -noattr ${OUTPUT_NETLIST}
+
+# ============================================
+# 【关键】将gtech门转换为纯AIG (只有AND和NOT)
+# 必须在write_signal_map之前执行！
+# ============================================
+aigmap
+opt
+
+# ============================================
+# 生成信号映射和AIGER
+# 每个RTL bit映射到AIG节点：input/latch/and/optimized
+# ============================================
+write_signal_map ${OUTPUT_MAPPING} ${OUTPUT_AIG}
+
+# 输出统计信息
+stat

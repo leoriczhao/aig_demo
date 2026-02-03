@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "drawio-controller": {
+      "type": "local",
+      "command": ["node", "/home/leoric/code/draw-io-mcp/local-mcp-server/index.js"],
+      "enabled": true
+    }
+  }
+}

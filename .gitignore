@@ -1,0 +1,35 @@
+# Build directories
+build/
+cmake-build-*/
+
+# Cache files
+.cache/
+*.pyc
+__pycache__/
+
+# IDE
+.idea/
+.vscode/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+cmake_install.cmake
+
+# Dependencies
+build/_deps/
+fullvision_demo/build/_deps/
+mockturtle/
+
+# Generated files
+*.o
+*.a
+*.so
+waveform_completion
+
+# Output directories
+output/
+fullvision_demo/output/
+
+# Submodules (if any)
