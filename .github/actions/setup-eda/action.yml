@@ -1,0 +1,19 @@
+name: Setup EDA toolchain
+description: Install yosys (+ dev headers for plugins), iverilog and build tools from Ubuntu packages
+
+runs:
+  using: composite
+  steps:
+    - name: Install packages
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          yosys yosys-dev iverilog build-essential cmake
+    - name: Tool versions
+      shell: bash
+      run: |
+        yosys -V
+        yosys-config --cxx
+        iverilog -V 2>&1 | head -1
+        cmake --version | head -1

@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feature/**", "ci/**"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: fullvision_demo
+
+jobs:
+  unit-tests:
+    name: Unit tests (Python ${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Byte-compile
+        run: python -m compileall -q compiler orchestrator scripts tests
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t . -v
+      - name: Shellcheck
+        run: shellcheck scripts/*.sh
+
+  build-and-integration:
+    name: Build + integration (yosys / iverilog)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-eda
+
+      - name: Fetch mockturtle (only if waveform_completion sources exist)
+        if: hashFiles('fullvision_demo/waveform_completion/src/main.cpp') != ''
+        working-directory: .
+        run: git clone --depth 1 https://github.com/lsils/mockturtle.git mockturtle
+
+      - name: Build
+        run: scripts/build_all.sh
+
+      - name: Yosys plugin smoke test
+        run: make -C compiler/yosys_plugin test
+
+      - name: Integration test (simple_alu pipeline)
+        run: scripts/ci_integration.sh ci_output
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fullvision-build-${{ github.sha }}
+          path: |
+            fullvision_demo/compiler/yosys_plugin/signal_mapper.so
+            fullvision_demo/runtime/vpi/trace_collector.vpi
+            fullvision_demo/build/waveform_completion
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload pipeline outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fullvision-ci-output-${{ github.sha }}
+          path: fullvision_demo/ci_output
+          if-no-files-found: ignore
+          retention-days: 14

@@ -28,7 +28,8 @@ class VCDParser:
                 content = f.read()
 
             # 解析变量定义
-            var_pattern = r'\$var\s+\w+\s+(\d+)\s+(\S+)\s+(\S+)\s+\$end'
+            # 名称后可带位选, 如: $var wire 8 " result [7:0] $end
+            var_pattern = r'\$var\s+\w+\s+(\d+)\s+(\S+)\s+(\S+)(?:\s+\[[^\]]*\])?\s+\$end'
             for match in re.finditer(var_pattern, content):
                 width, signal_id, name = match.groups()
                 self.signals[signal_id] = int(width)

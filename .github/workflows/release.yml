@@ -1,0 +1,84 @@
+name: Release
+
+# 推送 v* 标签 => 构建 + 测试 + 打包 + 发布 GitHub Release
+# 手动触发 (workflow_dispatch) => 只构建/测试/打包, 产物作为 workflow artifact, 不发布
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: fullvision_demo
+
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-eda
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            echo "version=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=dev-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Fetch mockturtle (only if waveform_completion sources exist)
+        if: hashFiles('fullvision_demo/waveform_completion/src/main.cpp') != ''
+        working-directory: .
+        run: git clone --depth 1 https://github.com/lsils/mockturtle.git mockturtle
+
+      - name: Build
+        run: scripts/build_all.sh
+
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -t . -v
+
+      - name: Integration test
+        run: scripts/ci_integration.sh ci_output
+
+      - name: Package
+        run: scripts/package.sh "${{ steps.version.outputs.version }}" dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fullvision-dist-${{ steps.version.outputs.version }}
+          path: fullvision_demo/dist/*
+          if-no-files-found: error
+
+  publish:
+    needs: package
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: fullvision-dist-${{ needs.package.outputs.version }}
+          path: dist
+
+      - name: Create GitHub Release
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          prerelease=""
+          case "$TAG" in *-*) prerelease="--prerelease" ;; esac
+          gh release create "$TAG" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$TAG" \
+            --generate-notes \
+            --verify-tag \
+            $prerelease

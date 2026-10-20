@@ -26,10 +26,16 @@ mockturtle/
 *.o
 *.a
 *.so
-waveform_completion
+*.d
+*.vpi
+*.vvp
+# 注: waveform_completion 可执行文件输出在 fullvision_demo/build/ (已被 build/ 忽略);
+# 不要直接写 "waveform_completion", 那会把同名的源码目录也忽略掉
 
 # Output directories
 output/
 fullvision_demo/output/
+fullvision_demo/ci_output/
+fullvision_demo/dist/
 
 # Submodules (if any)

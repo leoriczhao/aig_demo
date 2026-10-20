@@ -46,6 +46,9 @@ class PipelineConfig:
     vvp_path: str = "vvp"
     waveform_completion_path: Optional[Path] = None
 
+    # 验证存在差异时是否判定失败 (CI使用)
+    strict_verify: bool = False
+
     def __post_init__(self):
         if self.waveform_completion_path is None:
             self.waveform_completion_path = PROJECT_ROOT / "build" / "waveform_completion"
@@ -367,6 +370,7 @@ class FullVisionPipeline:
         logger.info("Step 5: Verification")
         logger.info("=" * 50)
 
+        sys.path.insert(0, str(PROJECT_ROOT))
         from orchestrator.verify import VCDComparator
 
         if not self.config.golden_vcd.exists():
@@ -387,6 +391,9 @@ class FullVisionPipeline:
             logger.info("Verification PASSED: No differences found")
             return True
         elif diff_count > 0:
+            if self.config.strict_verify:
+                logger.error(f"Verification FAILED: {diff_count} differences found")
+                return False
             logger.warning(f"Verification: {diff_count} differences found")
             # 返回True以允许流水线继续（差异可能是预期的）
             return True
@@ -394,28 +401,33 @@ class FullVisionPipeline:
             logger.error("Verification failed")
             return False
 
-    def run_all(self) -> bool:
-        """运行完整流水线"""
+    def steps(self):
+        """(key, 名称, 函数) 列表，key用于 --stop-after"""
+        return [
+            ("synthesis", "Synthesis", self.step1_synthesis),
+            ("signals", "Generate Signal List", self.step2_generate_signal_list),
+            ("rtl_sim", "RTL Simulation (Golden VCD)", self.step3a_rtl_simulation),
+            ("gtech_sim", "gtech Simulation (Trace)", self.step3b_gtech_simulation),
+            ("completion", "Waveform Completion", self.step4_waveform_completion),
+            ("verify", "Verification", self.step5_verification),
+        ]
+
+    def run_all(self, stop_after: Optional[str] = None) -> bool:
+        """运行完整流水线；stop_after 指定在某一步之后停止"""
         logger.info("=" * 60)
         logger.info("FullVision Demo Pipeline")
         logger.info("=" * 60)
 
         start_time = time.time()
 
-        steps = [
-            ("Synthesis", self.step1_synthesis),
-            ("Generate Signal List", self.step2_generate_signal_list),
-            ("RTL Simulation (Golden VCD)", self.step3a_rtl_simulation),
-            ("gtech Simulation (Trace)", self.step3b_gtech_simulation),
-            ("Waveform Completion", self.step4_waveform_completion),
-            ("Verification", self.step5_verification),
-        ]
-
-        for step_name, step_func in steps:
+        for step_key, step_name, step_func in self.steps():
             logger.info(f"\n>>> Running: {step_name}")
             if not step_func():
                 logger.error(f"Pipeline failed at step: {step_name}")
                 return False
+            if step_key == stop_after:
+                logger.info(f"Stopping after step: {step_name}")
+                break
 
         elapsed = time.time() - start_time
         logger.info("=" * 60)
@@ -433,23 +445,29 @@ def main():
     parser.add_argument("--testbench", help="Testbench file (default: dut/testbench.v)")
     parser.add_argument("--top", default="mini_cpu", help="Top module name")
     parser.add_argument("--output-dir", help="Output directory (default: output)")
+    parser.add_argument("--stop-after",
+                        choices=["synthesis", "signals", "rtl_sim", "gtech_sim", "completion", "verify"],
+                        help="Stop after the given step")
+    parser.add_argument("--strict", action="store_true",
+                        help="Fail verification if any VCD difference is found")
 
     args = parser.parse_args()
 
-    # 默认路径
-    dut_file = Path(args.dut) if args.dut else PROJECT_ROOT / "dut" / "mini_cpu.v"
-    testbench_file = Path(args.testbench) if args.testbench else PROJECT_ROOT / "dut" / "testbench.v"
-    output_dir = Path(args.output_dir) if args.output_dir else PROJECT_ROOT / "output"
+    # 默认路径 (转为绝对路径: 仿真在output_dir下运行, 相对路径会错位)
+    dut_file = Path(args.dut).resolve() if args.dut else PROJECT_ROOT / "dut" / "mini_cpu.v"
+    testbench_file = Path(args.testbench).resolve() if args.testbench else PROJECT_ROOT / "dut" / "testbench.v"
+    output_dir = Path(args.output_dir).resolve() if args.output_dir else PROJECT_ROOT / "output"
 
     config = PipelineConfig(
         dut_file=dut_file,
         testbench_file=testbench_file,
         top_module=args.top,
-        output_dir=output_dir
+        output_dir=output_dir,
+        strict_verify=args.strict
     )
 
     pipeline = FullVisionPipeline(config)
-    success = pipeline.run_all()
+    success = pipeline.run_all(stop_after=args.stop_after)
 
     return 0 if success else 1
 
